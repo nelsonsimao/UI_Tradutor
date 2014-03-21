@@ -1,0 +1,17 @@
+{% extends "app/index.html" %}
+
+{% block content %}
+<p>Frase: {{ cenas }}</p>
+<p>Tradução:  {{ best_list.0 }}</p>
+{% if best_list %}
+	<!--{{ best_list|length }}-->
+	<p>Caso a tradução dada não seja correcta, pode escolher uma das seguintes: </p>
+    <ul>
+    {% for best in best_list %}
+        <li>{{ forloop.counter }} - <a href="{{ best }}">{{ best }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhuma best translation.</p>
+{% endif %}
+{% endblock %}

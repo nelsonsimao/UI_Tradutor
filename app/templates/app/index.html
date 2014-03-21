@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+	<!-- META -->
+	<title>Sistema de Tradução</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="description" content="" />
+	
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/kickstart.css'%}" media="all" />
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" media="all" /> 
+
+	<!-- Javascript -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/kickstart.js' %}"></script>
+
+</head>
+<body>
+	<div class="center" style="margin:50px;">
+		<h1>Sistema de Tradução</h1>
+		
+		{% block content %}
+		
+		<!-- Button Bar w/icons -->
+		<form action="/app/" method="post">
+			<ul class="button-bar">
+			<li><button class="square" id="bt1" name="button" value="pten">PT-EN</button></li>
+			<li><button class="square" id="bt2" name="button" value="enpt">EN-PT</button></li>
+			<li><button class="square" id="bt3" name="button" value="ptzn">PT-CN</button></li>
+		</ul>
+		
+		<div id = "content" style="margin:70px;">
+			
+				{% csrf_token %}
+				<div class="col_6 align-center">
+					{{ form.frase }}
+				</div>
+				<div class="col_6 align-center">
+					{{ form.resultado }}
+					<label for="select1">Lista de melhores traduções:</label>
+				</div>
+				<div class="col_6 align-center">
+				<!--	<input type="submit" value="Traduzir">  -->
+				</div>
+		</form>
+				<div class="col_6 align-center">
+				<form action="/app/treino/" method="post">
+					{% csrf_token %}
+					<!-- Select -->
+					<select id="id_select1" name="select1">
+						{% for best in best_list %}
+							<option value="{{ best }}">{{ best }}</option>
+	    				{% endfor %}
+					</select>
+					<input type="submit" value="Treinar">
+				</form>
+				</div>
+				
+				{% endblock %}
+			
+		</div>
+	</div>
+</body>
+</html>
